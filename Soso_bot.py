@@ -20,13 +20,12 @@ async def post(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("👇 Pour commander :", reply_markup=MARKUP)
 
-def main():
+if __name__ == "__main__":
     app = Application.builder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("post", post))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     print("✅ Bot démarré...")
-    app.run_polling()
+    app.run_polling(drop_pending_updates=True)
 
-if __name__ == "__main__":
-    main()
+
