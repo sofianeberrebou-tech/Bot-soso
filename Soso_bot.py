@@ -10,44 +10,45 @@ OWNER_USERNAME = “sobr667”
 
 PRODUCTS = {
 “mcdo”: {
-“name”: “🍔 McDonald’s Discount”,
-“description”: “Get -50% off your McDonald’s order!\n✅ Valid on any order\n✅ Easy to use\n✅ Instant delivery”,
+“name”: “McDonald’s Discount”,
+“description”: “Get -50% off your McDonald’s order!\nValid on any order\nEasy to use\nInstant delivery”,
 “price”: “-50% off”
 },
 “retatrutide”: {
-“name”: “💊 Retatrutide (Weight Loss)”,
-“description”: “Retatrutide injection — premium weight loss solution.\n✅ Fast results\n✅ Medical grade\n✅ Discreet shipping”,
-“price”: “250€”
+“name”: “Retatrutide (Weight Loss)”,
+“description”: “Retatrutide injection - premium weight loss solution.\nFast results\nMedical grade\nDiscreet shipping”,
+“price”: “250EUR”
 },
 “cinema”: {
-“name”: “🎬 Cinema (FR)”,
-“description”: “Get -50% off cinema tickets in France!\n✅ All movies\n✅ All cinemas\n✅ Any day”,
+“name”: “Cinema (FR)”,
+“description”: “Get -50% off cinema tickets in France!\nAll movies\nAll cinemas\nAny day”,
 “price”: “-50% off”
 },
 “abonnements”: {
-“name”: “📱 Cheap Subscriptions”,
-“description”: “Netflix, Spotify, Disney+, and more at -50%!\n✅ Full access\n✅ All regions\n✅ Instant activation”,
+“name”: “Cheap Subscriptions”,
+“description”: “Netflix, Spotify, Disney+, and more at -50%!\nFull access\nAll regions\nInstant activation”,
 “price”: “-50% off”
 },
 “iptv”: {
-“name”: “📺 IPTV Premium”,
-“description”: “10,000+ channels | Movies | Series | Sports\n✅ HD/4K quality\n✅ All devices\n✅ Instant activation”,
-“price”: “60€/year”
+“name”: “IPTV Premium”,
+“description”: “10,000+ channels | Movies | Series | Sports\nHD/4K quality\nAll devices\nInstant activation”,
+“price”: “60EUR/year”
 }
 }
 
+def get_main_keyboard():
+return InlineKeyboardMarkup([
+[InlineKeyboardButton(“McDonald’s Discount”, callback_data=“mcdo”)],
+[InlineKeyboardButton(“Retatrutide (Weight Loss)”, callback_data=“retatrutide”)],
+[InlineKeyboardButton(“Cinema (FR)”, callback_data=“cinema”)],
+[InlineKeyboardButton(“Cheap Subscriptions”, callback_data=“abonnements”)],
+[InlineKeyboardButton(“IPTV Premium”, callback_data=“iptv”)],
+])
+
 def start(update: Update, context: CallbackContext):
-keyboard = [
-[InlineKeyboardButton(“🍔 McDonald’s Discount”, callback_data=“mcdo”)],
-[InlineKeyboardButton(“💊 Retatrutide (Weight Loss)”, callback_data=“retatrutide”)],
-[InlineKeyboardButton(“🎬 Cinema (FR)”, callback_data=“cinema”)],
-[InlineKeyboardButton(“📱 Cheap Subscriptions”, callback_data=“abonnements”)],
-[InlineKeyboardButton(“📺 IPTV Premium”, callback_data=“iptv”)],
-]
-reply_markup = InlineKeyboardMarkup(keyboard)
 update.message.reply_text(
-“👋 Welcome! What are you looking for today?\n\nChoose a category below 👇”,
-reply_markup=reply_markup
+“Welcome! What are you looking for today?\n\nChoose a category below:”,
+reply_markup=get_main_keyboard()
 )
 
 def button(update: Update, context: CallbackContext):
@@ -64,47 +65,30 @@ if data in PRODUCTS:
         "product": product["name"],
         "price": product["price"]
     }
-    keyboard = [
-        [InlineKeyboardButton("🛒 Order Now", url=f"https://t.me/{OWNER_USERNAME}?start=ORDER-{order_number}")],
-        [InlineKeyboardButton("⬅️ Back", callback_data="back")]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("Order Now", url="https://t.me/" + OWNER_USERNAME + "?start=ORDER-" + str(order_number))],
+        [InlineKeyboardButton("Back", callback_data="back")]
+    ])
     query.edit_message_text(
-        f"{product['name']}\n\n"
-        f"{product['description']}\n\n"
-        f"💰 Price: {product['price']}\n\n"
-        f"🔖 Your order number: #ORD{order_number}\n\n"
-        f"👇 Click below to place your order. Send your order number to the seller!",
-        reply_markup=reply_markup
+        product["name"] + "\n\n" +
+        product["description"] + "\n\n" +
+        "Price: " + product["price"] + "\n\n" +
+        "Your order number: #ORD" + str(order_number) + "\n\n" +
+        "Click below to place your order. Send your order number to the seller!",
+        reply_markup=keyboard
     )
 
 elif data == "back":
-    keyboard = [
-        [InlineKeyboardButton("🍔 McDonald's Discount", callback_data="mcdo")],
-        [InlineKeyboardButton("💊 Retatrutide (Weight Loss)", callback_data="retatrutide")],
-        [InlineKeyboardButton("🎬 Cinema (FR)", callback_data="cinema")],
-        [InlineKeyboardButton("📱 Cheap Subscriptions", callback_data="abonnements")],
-        [InlineKeyboardButton("📺 IPTV Premium", callback_data="iptv")],
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
     query.edit_message_text(
-        "👋 Welcome! What are you looking for today?\n\nChoose a category below 👇",
-        reply_markup=reply_markup
+        "Welcome! What are you looking for today?\n\nChoose a category below:",
+        reply_markup=get_main_keyboard()
     )
 ```
 
 def handle_message(update: Update, context: CallbackContext):
-keyboard = [
-[InlineKeyboardButton(“🍔 McDonald’s Discount”, callback_data=“mcdo”)],
-[InlineKeyboardButton(“💊 Retatrutide (Weight Loss)”, callback_data=“retatrutide”)],
-[InlineKeyboardButton(“🎬 Cinema (FR)”, callback_data=“cinema”)],
-[InlineKeyboardButton(“📱 Cheap Subscriptions”, callback_data=“abonnements”)],
-[InlineKeyboardButton(“📺 IPTV Premium”, callback_data=“iptv”)],
-]
-reply_markup = InlineKeyboardMarkup(keyboard)
 update.message.reply_text(
-“Choose a category below 👇”,
-reply_markup=reply_markup
+“Choose a category below:”,
+reply_markup=get_main_keyboard()
 )
 
 if **name** == “**main**”:
@@ -113,6 +97,6 @@ dp = updater.dispatcher
 dp.add_handler(CommandHandler(“start”, start))
 dp.add_handler(CallbackQueryHandler(button))
 dp.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_message))
-print(“✅ Bot started…”)
+print(“Bot started…”)
 updater.start_polling()
 updater.idle()
