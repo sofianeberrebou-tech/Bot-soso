@@ -1,13 +1,13 @@
 import logging
+import os
 import random
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackQueryHandler, Filters, CallbackContext
 
 logging.basicConfig(level=logging.INFO)
 
-BOT_TOKEN = “8705907084:AAG7pGg6waUlihOSRuTJuxBs97qejsUZTUk”
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
 OWNER_USERNAME = “sobr667”
-
 PRODUCTS = {
 “mcdo”: {
 “name”: “McDonald’s Discount”,
