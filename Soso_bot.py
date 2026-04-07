@@ -7,11 +7,11 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackQueryH
 logging.basicConfig(level=logging.INFO)
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
-OWNER_USERNAME = “sobr667”
+OWNER_USERNAME = "sobr667"
 PRODUCTS = {
-“mcdo”: {
-“name”: “McDonald’s Discount”,
-“description”: “Get -50% off your McDonald’s order!\nValid on any order\nEasy to use\nInstant delivery”,
+"mcdo": {
+"name": "McDonald’s Discount",
+"description": "Get -50% off your McDonald’s order!\nValid on any order\nEasy to use\nInstant delivery”,
 “price”: “-50% off”
 },
 “retatrutide”: {
